@@ -8,3 +8,4 @@
 ## [72] 2026-11-16 21:37:32 - fix: Fix notification badge count logic
 ## [73] 2026-11-16 21:37:32 - feat: Add payment method selection UI
 ## [74] 2026-11-16 21:37:32 - refactor: Clean up AuthContext token handling
+## [75] 2026-11-16 21:37:33 - feat: Add invoice status color indicators
