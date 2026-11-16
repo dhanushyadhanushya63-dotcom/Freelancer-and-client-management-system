@@ -32,3 +32,4 @@
 ## [96] 2026-11-16 21:37:39 - fix: Fix switch role blank page issue
 ## [97] 2026-11-16 21:37:39 - feat: Add invoice tax calculation field
 ## [98] 2026-11-16 21:37:39 - refactor: Optimize chart data rendering
+## [99] 2026-11-16 21:37:40 - feat: Add project request accept animation
