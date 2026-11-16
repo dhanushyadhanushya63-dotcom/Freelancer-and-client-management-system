@@ -1,4 +1,4 @@
-﻿# 🚀 Freelancer Invoice & Client Management System
+# 🚀 Freelancer Invoice & Client Management System
 
 A full-stack **Freelancer Invoice & Client Management** platform built with React 18 + Spring Boot, featuring the **Obsidian & Emerald** dark theme.
 
@@ -19,9 +19,10 @@ A full-stack **Freelancer Invoice & Client Management** platform built with Reac
 ## 👥 Team
 | Name | Role |
 |------|------|
-| Dhanushya Muthumani | Lead Developer |
-| Dhivya Murugeshan | Frontend Developer |
-| Devasri | UI/UX Developer |
+| Dhanushya Muthumani | Frontend Developer |
+| Dhivya Murugeshan | Backend Developer |
+| Devasri | Backend + Database Developer |
+
 
 ## 🚀 Run Locally
 ```bash
