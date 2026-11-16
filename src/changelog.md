@@ -13,3 +13,4 @@
 ## [77] 2026-11-16 21:37:33 - feat: Add client avatar fallback initials
 ## [78] 2026-11-16 21:37:33 - refactor: Optimize DataContext localStorage sync
 ## [79] 2026-11-16 21:37:34 - feat: Add overdue invoice alert system
+## [80] 2026-11-16 21:37:35 - fix: Fix sidebar navigation active state
