@@ -34,3 +34,5 @@
 ## [98] 2026-11-16 21:37:39 - refactor: Optimize chart data rendering
 ## [99] 2026-11-16 21:37:40 - feat: Add project request accept animation
 ## [100] 2026-11-16 21:37:40 - feat: Final polish - Obsidian and Emerald theme complete
+
+### PR-6: fix: Date picker styling
