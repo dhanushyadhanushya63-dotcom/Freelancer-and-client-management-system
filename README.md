@@ -19,9 +19,9 @@ A full-stack **Freelancer Invoice & Client Management** platform built with Reac
 ## 👥 Team
 | Name | Role |
 |------|------|
-| Dhanushya Muthumani | Frontend Developer |
-| Dhivya Murugeshan | Backend Developer |
-| Devasri | Backend + Database Developer |
+| Dhanushya Muthumani | Frontend |
+| Dhivya Murugeshan | Backend |
+| Devasri | Backend + Database |
 
 
 
