@@ -1,51 +1,275 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ═══════════════════════════════════════════
+   OBSIDIAN & EMBER — Design Tokens
+   60% Pitch Obsidian  #09090B
+   30% White + Carbon  #FFFFFF / #18181B
+   10% Electric Orange #FB923C
+═══════════════════════════════════════════ */
 @layer base {
+  :root {
+    /* Obsidian & Ember → Obsidian & Emerald */
+    --bg:          #09090B;   /* 60% — main background */
+    --surface:     #18181B;   /* card / modal surface  */
+    --surface-2:   #1F1F23;   /* elevated surface      */
+    --border:      #27272A;   /* dark graphite borders */
+    --text:        #FFFFFF;   /* primary text          */
+    --muted:       #A1A1AA;   /* muted zinc text       */
+    --accent:      #22C55E;   /* 10% emerald green     */
+    --accent-h:    #16A34A;   /* hover green           */
+    --accent-dk:   #15803D;   /* deep green            */
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+  }
+
   body {
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
   }
-  
-  code, pre {
-    font-family: 'JetBrains Mono', monospace;
+
+  h1, h2, h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    letter-spacing: -0.01em;
+  }
+
+  h4, h5, h6, label, button, nav {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+  }
+
+  /* Custom scrollbar — dark theme */
+  ::-webkit-scrollbar       { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+}
+
+@layer components {
+
+  /* ── Dark surface card ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+  }
+
+  .card-ember {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+  }
+  .card-ember:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent), 0 8px 32px rgba(251,146,60,0.12);
+    transform: translateY(-2px);
+  }
+
+  /* ── Buttons ── */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+           px-5 py-2.5 rounded-xl text-sm font-black
+           active:scale-[0.97] transition-all duration-150;
+    background: var(--accent);
+    color: #09090B;
+    border: 1px solid var(--accent-h);
+    box-shadow: 0 1px 3px rgba(34,197,94,0.3), 0 0 0 0 var(--accent);
+  }
+  .btn-primary:hover {
+    background: var(--accent-h);
+    box-shadow: 0 4px 16px rgba(34,197,94,0.35);
+  }
+
+  .btn-dark {
+    @apply inline-flex items-center justify-center gap-2
+           px-5 py-2.5 rounded-xl text-sm font-black
+           active:scale-[0.97] transition-all duration-150;
+    background: var(--surface-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-dark:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2
+           px-5 py-2.5 rounded-xl text-sm font-black
+           active:scale-[0.97] transition-all duration-150;
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* ── Input — dark ── */
+  .input {
+    @apply w-full px-4 py-2.5 rounded-xl text-sm
+           focus:outline-none transition-all duration-150;
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .input::placeholder { color: var(--muted); }
+  .input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(34,197,94,0.12); }
+
+  /* ── Badges ── */
+  .badge        { @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold; border: 1px solid; }
+  .badge-green  { background: rgba(34,197,94,0.12);  color: #4ADE80; border-color: rgba(34,197,94,0.25); }
+  .badge-red    { background: rgba(239,68,68,0.12);  color: #F87171; border-color: rgba(239,68,68,0.25); }
+  .badge-yellow { background: rgba(234,179,8,0.12);  color: #FCD34D; border-color: rgba(234,179,8,0.25); }
+  .badge-blue   { background: rgba(59,130,246,0.12); color: #93C5FD; border-color: rgba(59,130,246,0.25); }
+  .badge-purple { background: rgba(168,85,247,0.12); color: #C084FC; border-color: rgba(168,85,247,0.25); }
+  .badge-gray   { background: rgba(161,161,170,0.12);color: #A1A1AA; border-color: rgba(161,161,170,0.25); }
+  .badge-orange { background: rgba(34,197,94,0.15); color: #22C55E; border-color: rgba(34,197,94,0.3); }
+
+  /* ── Logo mark ── */
+  .logo-mark {
+    @apply w-9 h-9 rounded-xl flex items-center justify-center
+           font-black text-base select-none flex-shrink-0;
+    background: var(--accent);
+    color: #09090B;
+    border: 1px solid var(--accent-h);
+    box-shadow: 0 0 16px rgba(34,197,94,0.3);
   }
 }
 
-/* Custom scrollbars */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #f1f5f9;
-}
-::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 9999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+/* ═════════ ANIMATIONS ═════════ */
+@layer utilities {
+
+  .animate-fadein {
+    animation: fadein 0.5s cubic-bezier(0.16,1,0.3,1) both;
+  }
+  @keyframes fadein {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-fade {
+    animation: fade 0.3s ease both;
+  }
+  @keyframes fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .animate-slidein-left {
+    animation: slideInLeft 0.4s cubic-bezier(0.16,1,0.3,1) both;
+  }
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-24px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  .animate-scalepop {
+    animation: scalepop 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+  @keyframes scalepop {
+    from { opacity: 0; transform: scale(0.9); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  .animate-float {
+    animation: float 5s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50%       { transform: translateY(-10px) rotate(1deg); }
+  }
+
+  .animate-glow {
+    animation: glow-ember 2.5s ease-in-out infinite;
+  }
+  @keyframes glow-ember {
+    0%, 100% { box-shadow: 0 0 8px rgba(34,197,94,0.3); }
+    50%       { box-shadow: 0 0 24px rgba(34,197,94,0.7), 0 0 48px rgba(34,197,94,0.2); }
+  }
+
+  /* Stagger children */
+  .stagger > * { animation: fadein 0.5s cubic-bezier(0.16,1,0.3,1) both; }
+  .stagger > *:nth-child(1) { animation-delay: 0.05s; }
+  .stagger > *:nth-child(2) { animation-delay: 0.10s; }
+  .stagger > *:nth-child(3) { animation-delay: 0.15s; }
+  .stagger > *:nth-child(4) { animation-delay: 0.20s; }
+  .stagger > *:nth-child(5) { animation-delay: 0.25s; }
+  .stagger > *:nth-child(6) { animation-delay: 0.30s; }
 }
 
-/* Print styles for invoice */
-@media print {
-  body * {
-    visibility: hidden;
-  }
-  #invoice-print-area, #invoice-print-area * {
-    visibility: visible;
-  }
-  #invoice-print-area {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    margin: 0;
-    padding: 20px;
-    background: white;
-  }
-  .no-print {
-    display: none !important;
-  }
+/* ═══════════════════════════════════════════════════
+   GLOBAL INPUT OVERRIDE — Obsidian & Ember dark mode
+   Forces ALL inputs/selects/textareas dark regardless
+   of which component or CSS class is used.
+═══════════════════════════════════════════════════ */
+
+input,
+select,
+textarea {
+  background-color: #1F1F23 !important;
+  color: #FFFFFF !important;
+  border-color: #27272A !important;
+  caret-color: #22C55E !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  font-family: 'Space Grotesk', 'Inter', sans-serif !important;
 }
+
+input::placeholder,
+textarea::placeholder {
+  color: #A1A1AA !important;
+  -webkit-text-fill-color: #A1A1AA !important;
+  opacity: 1 !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none !important;
+  border-color: #22C55E !important;
+
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15) !important;
+}
+
+/* Select dropdown options */
+select option {
+  background-color: #18181B !important;
+  color: #FFFFFF !important;
+}
+
+/* Date picker icon tint */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) !important;
+  opacity: 0.6;
+  cursor: pointer;
+}
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+/* Number input arrows */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  filter: invert(0.7);
+}
+
+/* Autofill dark override */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #1F1F23 inset !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  caret-color: #22C55E !important;
+}
+

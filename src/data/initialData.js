@@ -1,7 +1,7 @@
 export const initialFreelancerProfile = {
   id: 'fl-1',
-  name: 'Vimalanathan R.',
-  email: 'vimal@freelancer.dev',
+  name: 'Dhanushya Muthumani',
+  email: 'dhanushya@freelancer.dev',
   role: 'Freelancer',
   title: 'Full Stack & Mobile App Developer',
   phone: '+91 98765 43210',
@@ -12,36 +12,36 @@ export const initialFreelancerProfile = {
   skills: ['React', 'Node.js', 'Tailwind CSS', 'Next.js', 'PostgreSQL', 'TypeScript', 'Figma'],
   avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
   bankDetails: {
-    accountName: 'Vimalanathan R',
+    accountName: 'Dhanushya Muthumani',
     accountNumber: '918237465012',
     bankName: 'HDFC Bank',
     ifscCode: 'HDFC0001234',
-    upiId: 'vimalanathan@okaxis'
+    upiId: 'dhanushya@okaxis'
   }
 };
 
 export const initialClients = [
   {
     id: 'cli-1',
-    name: 'TechNova Solutions',
-    contactPerson: 'Karthik Subramanian',
-    email: 'karthik@technova.io',
+    name: 'Dhivya Murugeshan',
+    contactPerson: 'Dhivya Murugeshan',
+    email: 'dhivya@murugeshan.in',
     phone: '+91 98401 23456',
-    company: 'TechNova Solutions Pvt Ltd',
-    address: 'OMR Cyber Park, Chennai, India',
+    company: 'Murugeshan Enterprises',
+    address: 'Anna Nagar, Chennai, Tamil Nadu, India',
     status: 'Active',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
+    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
     totalBilled: 145000,
     paidAmount: 110000
   },
   {
     id: 'cli-2',
-    name: 'PixelCrafters Studio',
-    contactPerson: 'Priya Sundaram',
-    email: 'priya@pixelcrafters.design',
+    name: 'Devasri',
+    contactPerson: 'Devasri',
+    email: 'devasri@studio.in',
     phone: '+91 98200 87654',
-    company: 'PixelCrafters Studio',
-    address: 'Indiranagar, Bengaluru, India',
+    company: 'Devasri Creative Studio',
+    address: 'T. Nagar, Chennai, Tamil Nadu, India',
     status: 'Active',
     avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80',
     totalBilled: 85000,
@@ -66,11 +66,11 @@ export const initialProjects = [
   {
     id: 'prj-1',
     clientId: 'cli-1',
-    clientName: 'TechNova Solutions',
+    clientName: 'Dhivya Murugeshan',
     title: 'Fintech Dashboard & Analytics Portal',
     description: 'Design and build a responsive React & Tailwind analytics dashboard with transaction logs and real-time graphs.',
     budget: 65000,
-    status: 'In Progress', // Requested, In Progress, Completed, Rejected
+    status: 'In Progress',
     progress: 70,
     startDate: '2026-10-15',
     deadline: '2026-11-25',
@@ -79,7 +79,7 @@ export const initialProjects = [
   {
     id: 'prj-2',
     clientId: 'cli-2',
-    clientName: 'PixelCrafters Studio',
+    clientName: 'Devasri',
     title: 'Brand Portfolio & Case Study Website',
     description: 'High-performance headless CMS portfolio website with smooth animations and dark mode support.',
     budget: 85000,
@@ -105,11 +105,11 @@ export const initialProjects = [
   {
     id: 'prj-4',
     clientId: 'cli-1',
-    clientName: 'TechNova Solutions',
+    clientName: 'Dhivya Murugeshan',
     title: 'Customer Onboarding Flow Redesign',
     description: 'Simplify multi-step KYC verification and onboarding experience for new fintech users.',
     budget: 35000,
-    status: 'Requested', // New client request awaiting freelancer acceptance
+    status: 'Requested',
     progress: 0,
     startDate: '2026-11-12',
     deadline: '2026-12-20',
@@ -124,13 +124,13 @@ export const initialInvoices = [
     projectId: 'prj-2',
     projectTitle: 'Brand Portfolio & Case Study Website',
     clientId: 'cli-2',
-    clientName: 'PixelCrafters Studio',
-    clientEmail: 'priya@pixelcrafters.design',
-    clientCompany: 'PixelCrafters Studio',
-    clientAddress: 'Indiranagar, Bengaluru, India',
+    clientName: 'Devasri',
+    clientEmail: 'devasri@studio.in',
+    clientCompany: 'Devasri Creative Studio',
+    clientAddress: 'T. Nagar, Chennai, Tamil Nadu, India',
     issueDate: '2026-10-10',
     dueDate: '2026-10-24',
-    status: 'Paid', // Draft, Sent, Paid, Overdue
+    status: 'Paid',
     items: [
       { id: 'item-1', description: 'Wireframing & UI/UX Design (Figma)', quantity: 25, rate: 1200, amount: 30000 },
       { id: 'item-2', description: 'React Frontend Development & Motion Graphics', quantity: 40, rate: 1200, amount: 48000 },
@@ -152,10 +152,10 @@ export const initialInvoices = [
     projectId: 'prj-1',
     projectTitle: 'Fintech Dashboard Milestone 1',
     clientId: 'cli-1',
-    clientName: 'TechNova Solutions',
-    clientEmail: 'karthik@technova.io',
-    clientCompany: 'TechNova Solutions Pvt Ltd',
-    clientAddress: 'OMR Cyber Park, Chennai, India',
+    clientName: 'Dhivya Murugeshan',
+    clientEmail: 'dhivya@murugeshan.in',
+    clientCompany: 'Murugeshan Enterprises',
+    clientAddress: 'Anna Nagar, Chennai, Tamil Nadu, India',
     issueDate: '2026-10-25',
     dueDate: '2026-11-08',
     status: 'Paid',
@@ -203,10 +203,10 @@ export const initialInvoices = [
     projectId: 'prj-1',
     projectTitle: 'Fintech Dashboard Milestone 2',
     clientId: 'cli-1',
-    clientName: 'TechNova Solutions',
-    clientEmail: 'karthik@technova.io',
-    clientCompany: 'TechNova Solutions Pvt Ltd',
-    clientAddress: 'OMR Cyber Park, Chennai, India',
+    clientName: 'Dhivya Murugeshan',
+    clientEmail: 'dhivya@murugeshan.in',
+    clientCompany: 'Murugeshan Enterprises',
+    clientAddress: 'Anna Nagar, Chennai, Tamil Nadu, India',
     issueDate: '2026-10-15',
     dueDate: '2026-10-29',
     status: 'Overdue',
@@ -261,9 +261,9 @@ export const initialExpenses = [
 export const initialNotifications = [
   {
     id: 'notif-1',
-    type: 'request', // request, payment, deadline, overdue
+    type: 'request',
     title: 'New Project Request',
-    message: 'TechNova Solutions has submitted a new project request: "Customer Onboarding Flow Redesign"',
+    message: 'Dhivya Murugeshan has submitted a new project request: "Customer Onboarding Flow Redesign"',
     date: '10 mins ago',
     read: false,
     link: 'projects'
@@ -272,7 +272,7 @@ export const initialNotifications = [
     id: 'notif-2',
     type: 'overdue',
     title: 'Overdue Invoice Alert',
-    message: 'Invoice INV-2026-004 for TechNova Solutions (₹30,000) is 14 days overdue.',
+    message: 'Invoice INV-2026-004 for Dhivya Murugeshan (₹30,000) is 14 days overdue.',
     date: '2 hours ago',
     read: false,
     link: 'invoices'
@@ -290,7 +290,7 @@ export const initialNotifications = [
     id: 'notif-4',
     type: 'payment',
     title: 'Payment Received',
-    message: 'Received ₹35,000 via UPI for Invoice INV-2026-002 from TechNova Solutions.',
+    message: 'Received ₹35,000 via UPI for Invoice INV-2026-002 from Dhivya Murugeshan.',
     date: '10 days ago',
     read: true,
     link: 'payments'

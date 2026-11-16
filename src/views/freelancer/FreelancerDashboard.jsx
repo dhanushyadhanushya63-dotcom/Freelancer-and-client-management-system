@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   Users, FolderKanban, IndianRupee, CheckCircle2, Clock, 
   Receipt, Plus, Search, Filter, Eye, Trash2, Edit3, 
@@ -66,195 +66,197 @@ export default function FreelancerDashboard({ onLogout }) {
 
   const unreadNotifCount = notifications.filter(n => !n.read).length;
 
+  const navItems = [
+    { id: 'overview',  label: 'Overview',          icon: BarChart2  },
+    { id: 'clients',   label: 'Clients',            icon: Users      },
+    { id: 'projects',  label: 'Projects',           icon: FolderKanban },
+    { id: 'invoices',  label: 'Invoices',           icon: FileText   },
+    { id: 'payments',  label: 'Payments',           icon: ShieldCheck },
+    { id: 'expenses',  label: 'Expenses',           icon: Receipt    },
+    { id: 'reports',   label: 'Reports',            icon: BarChart2  },
+    { id: 'settings',  label: 'Settings',           icon: Settings   },
+  ];
+
+  const TK = { bg:'#09090B', surface:'#18181B', sur2:'#1F1F23', border:'#27272A', text:'#FFFFFF', muted:'#A1A1AA', accent:'#22C55E' };
+
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
-      {/* Top Navbar */}
-      <header className="sticky top-0 z-30 bg-white border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-indigo-600 text-white font-black flex items-center justify-center text-lg shadow-sm">
-              ₹
+    <div className="min-h-screen flex" style={{ background: TK.bg, fontFamily:"'Space Grotesk',sans-serif" }}>
+
+      {/* ═══════════════════
+          SIDEBAR — #18181B surface
+          Active = Ember Orange
+      ═══════════════════ */}
+      <aside className="hidden lg:flex flex-col w-60 h-screen sticky top-0 flex-shrink-0 animate-slidein-left border-r"
+        style={{ background: TK.surface, borderColor: TK.border }}>
+
+        {/* Logo */}
+        <div className="h-16 flex items-center gap-3 px-5 border-b" style={{ borderColor: TK.border }}>
+          <div className="logo-mark animate-glow">₹</div>
+          <span style={{ fontFamily:"'Playfair Display',serif" }} className="font-black text-lg">
+            <span style={{ color: TK.text }}>Freelance</span><span style={{ color: TK.accent }}>IO</span>
+          </span>
+        </div>
+
+        {/* Nav */}
+        <nav className="flex-1 py-5 px-3 space-y-0.5 overflow-y-auto">
+          <p className="text-[10px] font-black uppercase tracking-widest px-3 mb-3" style={{ color: TK.muted, opacity:0.5 }}>Navigation</p>
+          {navItems.map(item => {
+            const Icon = item.icon;
+            const isActive = activeTab === item.id;
+            return (
+              <button key={item.id} onClick={() => setActiveTab(item.id)}
+                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-black transition-all duration-150"
+                style={{ fontFamily:"'Space Grotesk',sans-serif",
+                  background: isActive ? TK.accent : 'transparent',
+                  color:      isActive ? '#09090B' : TK.muted,
+                  boxShadow:  isActive ? `0 4px 12px rgba(34,197,94,0.25)` : 'none',
+                }}
+                onMouseOver={e => { if (!isActive) { e.currentTarget.style.background=TK.sur2; e.currentTarget.style.color=TK.text; } }}
+                onMouseOut={e =>  { if (!isActive) { e.currentTarget.style.background='transparent'; e.currentTarget.style.color=TK.muted; } }}>
+                <Icon className="w-4 h-4 flex-shrink-0" style={{ color: isActive ? '#09090B' : TK.muted }} />
+                {item.label}
+                {item.id==='clients' && clients.length>0 &&
+                  <span className="ml-auto text-[11px] font-black px-1.5 py-0.5 rounded-md"
+                    style={{ background: isActive?'rgba(9,9,11,0.2)':'rgba(34,197,94,0.12)', color: isActive?'#09090B':TK.accent }}>{clients.length}</span>}
+                {item.id==='projects' && projects.length>0 &&
+                  <span className="ml-auto text-[11px] font-black px-1.5 py-0.5 rounded-md"
+                    style={{ background: isActive?'rgba(9,9,11,0.2)':'rgba(34,197,94,0.12)', color: isActive?'#09090B':TK.accent }}>{projects.length}</span>}
+                {item.id==='invoices' && invoices.length>0 &&
+                  <span className="ml-auto text-[11px] font-black px-1.5 py-0.5 rounded-md"
+                    style={{ background: isActive?'rgba(9,9,11,0.2)':'rgba(34,197,94,0.12)', color: isActive?'#09090B':TK.accent }}>{invoices.length}</span>}
+              </button>
+            );
+          })}
+        </nav>
+
+        {/* User block */}
+        <div className="p-3 border-t" style={{ borderColor: TK.border }}>
+          <div className="flex items-center gap-3 p-2.5 rounded-xl transition cursor-pointer"
+            onMouseOver={e => e.currentTarget.style.background=TK.sur2}
+            onMouseOut={e => e.currentTarget.style.background='transparent'}>
+            <div className="w-8 h-8 rounded-full flex items-center justify-center font-black text-sm flex-shrink-0 animate-glow"
+              style={{ background: TK.accent, color:'#09090B' }}>
+              {profile.name?.charAt(0)||'U'}
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-extrabold text-slate-900 tracking-tight text-sm sm:text-base">
-                  FreelanceFlow
-                </span>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-                  Freelancer Portal
-                </span>
-              </div>
-              <p className="text-[11px] text-slate-400 hidden sm:block">Logged in as {profile.name}</p>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-black truncate" style={{ color: TK.text }}>{profile.name}</p>
+              <p className="text-xs truncate" style={{ color: TK.muted }}>Freelancer</p>
             </div>
-          </div>
-
-          {/* Right Actions */}
-          <div className="flex items-center gap-2.5">
-            {/* Quick Switch to Client Mode for Testing */}
-            <button
-              onClick={() => switchRole('Client')}
-              className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-amber-800 bg-amber-50 hover:bg-amber-100 border border-amber-200 rounded-lg transition"
-              title="Quickly switch to Client Portal to test workflow"
-            >
-              Switch to Client Mode ⇄
-            </button>
-
-            {/* Notification Bell */}
-            <button
-              onClick={() => setIsNotificationsOpen(true)}
-              className="relative p-2 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition"
-              aria-label="View notifications"
-            >
-              <Bell className="w-5 h-5" />
-              {unreadNotifCount > 0 && (
-                <span className="absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-indigo-600 text-white text-[10px] font-bold flex items-center justify-center ring-2 ring-white">
-                  {unreadNotifCount}
-                </span>
-              )}
-            </button>
-
-            {/* Logout (Module 11: Logout Flow) */}
-            <button
-              onClick={onLogout}
-              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-bold text-rose-600 hover:bg-rose-50 rounded-xl transition"
-              title="Logout and return to Home Page"
-            >
+            <button onClick={onLogout} title="Logout" className="transition" style={{ color: TK.muted }}
+              onMouseOver={e => e.currentTarget.style.color='#F87171'}
+              onMouseOut={e => e.currentTarget.style.color=TK.muted}>
               <LogOut className="w-4 h-4" />
-              <span className="hidden sm:inline">Logout</span>
             </button>
           </div>
         </div>
+      </aside>
 
-        {/* Management Module Tabs (Flowchart Module 3: Management Modules) */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-1 overflow-x-auto scrollbar-none py-1">
-          {[
-            { id: 'overview', label: 'Overview', icon: BarChart2 },
-            { id: 'clients', label: `Clients (${clients.length})`, icon: Users },
-            { id: 'projects', label: `Projects (${projects.length})`, icon: FolderKanban },
-            { id: 'invoices', label: `Invoices (${invoices.length})`, icon: FileText },
-            { id: 'payments', label: 'Payments', icon: ShieldCheck },
-            { id: 'expenses', label: `Expenses (${expenses.length})`, icon: Receipt },
-            { id: 'reports', label: 'Reports & Analytics', icon: BarChart2 },
-            { id: 'settings', label: 'Profile & Settings', icon: Settings },
-          ].map(tab => {
-            const Icon = tab.icon;
-            const isActive = activeTab === tab.id;
+
+      {/* ── Main area ── */}
+      <div className="flex-1 flex flex-col min-w-0">
+
+        {/* Top Header — dark surface (#18181B) */}
+        <header className="sticky top-0 z-20 h-16 flex items-center justify-between px-6 border-b"
+          style={{ background:TK.surface, borderColor:TK.border, fontFamily:"'Space Grotesk',sans-serif" }}>
+          <div>
+            <h1 className="text-base font-black capitalize" style={{ color:TK.text }}>  
+              {navItems.find(n => n.id === activeTab)?.label || 'Dashboard'}
+            </h1>
+            <p className="text-xs hidden sm:block" style={{ color:TK.muted }}>Welcome back, {profile.name} 👋</p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            {/* Switch to Client — Ember Orange */}
+            <button onClick={() => switchRole('Client')}
+              className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-black rounded-lg transition"
+              style={{ background:TK.accent, color:'#09090B', border:`1px solid #16A34A`, boxShadow:'0 2px 8px rgba(34,197,94,0.3)', fontFamily:"'Space Grotesk',sans-serif" }}
+              onMouseOver={e => { e.currentTarget.style.background='#16A34A'; e.currentTarget.style.boxShadow='0 4px 16px rgba(34,197,94,0.4)'; }}
+              onMouseOut={e => { e.currentTarget.style.background=TK.accent; e.currentTarget.style.boxShadow='0 2px 8px rgba(34,197,94,0.3)'; }}>
+              Switch to Client ⇄
+            </button>
+
+            {/* Bell */}
+            <button onClick={() => setIsNotificationsOpen(true)}
+              className="relative p-2 rounded-xl transition" style={{ color:TK.muted }}
+              onMouseOver={e => { e.currentTarget.style.background=TK.sur2; e.currentTarget.style.color=TK.text; }}
+              onMouseOut={e => { e.currentTarget.style.background='transparent'; e.currentTarget.style.color=TK.muted; }}>
+              <Bell className="w-5 h-5" />
+              {unreadNotifCount > 0 && (
+                <span className="absolute top-1.5 right-1.5 w-4 h-4 text-[10px] font-black flex items-center justify-center rounded-full"
+                  style={{ background:TK.accent, color:'#09090B' }}>{unreadNotifCount}</span>
+              )}
+            </button>
+
+            {/* Mobile logout */}
+            <button onClick={onLogout} className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-black rounded-xl transition lg:hidden"
+              style={{ color:'#F87171' }}
+              onMouseOver={e => e.currentTarget.style.background='rgba(248,113,113,0.1)'}
+              onMouseOut={e => e.currentTarget.style.background='transparent'}>
+              <LogOut className="w-4 h-4" /><span className="hidden sm:inline">Logout</span>
+            </button>
+          </div>
+        </header>
+
+        {/* Mobile tabs */}
+        <div className="lg:hidden flex items-center gap-1 overflow-x-auto px-4 py-2 border-b" style={{ background:TK.surface, borderColor:TK.border }}>
+          {navItems.map(item => {
+            const Icon = item.icon;
+            const isAct = activeTab === item.id;
             return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold rounded-lg transition whitespace-nowrap ${
-                  isActive
-                    ? 'bg-indigo-600 text-white shadow-xs'
-                    : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
-                }`}
-              >
-                <Icon className="w-3.5 h-3.5" />
-                {tab.label}
+              <button key={item.id} onClick={() => setActiveTab(item.id)}
+                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-black rounded-lg whitespace-nowrap transition"
+                style={{ background: isAct?TK.accent:'transparent', color: isAct?'#09090B':TK.muted, fontFamily:"'Space Grotesk',sans-serif" }}>
+                <Icon className="w-3.5 h-3.5" />{item.label}
               </button>
             );
           })}
         </div>
-      </header>
 
-      {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
-        {/* ========================================================= */}
-        {/* TAB 1: OVERVIEW & 6 STAT CARDS (Flowchart Module 3) */}
-        {/* ========================================================= */}
+        {/* Main Content */}
+        <main className="flex-1 p-6 overflow-y-auto" style={{ background:TK.bg }}>
         {activeTab === 'overview' && (
-          <div className="space-y-8">
-            {/* Top Welcome Banner */}
-            <div className="bg-gradient-to-r from-indigo-700 via-indigo-600 to-indigo-800 rounded-3xl p-6 sm:p-8 text-white shadow-lg relative overflow-hidden">
-              <div className="relative z-10 max-w-2xl">
-                <span className="inline-block text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/20 text-indigo-100 mb-2">
-                  Freelancer Command Center
+          <div className="space-y-6 animate-fadein">
+
+            {/* Welcome + Quick Actions */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <h2 className="text-xl font-black" style={{ color:TK.text, fontFamily:"'Playfair Display',serif" }}>Good morning, {profile.name} 👋</h2>
+                <p className="text-sm mt-0.5 font-semibold" style={{ color:TK.muted }}>Here's what's happening with your business today.</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <button onClick={() => setIsClientModalOpen(true)} className="btn-secondary text-sm">
+                  <Users className="w-4 h-4" /> Add Client
+                </button>
+                <button onClick={() => setIsInvoiceBuilderOpen(true)} className="btn-primary text-sm">
+                  <Plus className="w-4 h-4" /> New Invoice
+                </button>
+              </div>
+            </div>
+
+            {/* Alert bar */}
+            {(pendingPayments > 0 || projects.filter(p => p.status === 'Requested').length > 0) && (
+              <div className="rounded-xl px-4 py-3 flex items-center gap-3 text-sm font-semibold"
+                style={{ background:'rgba(34,197,94,0.1)', border:'1px solid rgba(34,197,94,0.25)', color:TK.accent }}>
+                <AlertTriangle className="w-4 h-4 flex-shrink-0" />
+                <span>
+                  You have <strong>₹{pendingPayments.toLocaleString('en-IN')}</strong> pending payments
+                  {projects.filter(p => p.status === 'Requested').length > 0 &&
+                    <> and <strong>{projects.filter(p => p.status === 'Requested').length} project request(s)</strong> awaiting your approval.</>
+                  }
                 </span>
-                <h1 className="text-2xl sm:text-3xl font-black tracking-tight">
-                  Welcome back, {profile.name}! 👋
-                </h1>
-                <p className="text-xs sm:text-sm text-indigo-100 mt-1 leading-relaxed">
-                  You have <span className="font-bold underline text-white">₹{pendingPayments.toLocaleString('en-IN')}</span> in pending payments and {projects.filter(p => p.status === 'Requested').length} new client requests awaiting approval.
-                </p>
-
-                <div className="mt-5 flex flex-wrap items-center gap-3">
-                  <button
-                    onClick={() => setIsInvoiceBuilderOpen(true)}
-                    className="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-indigo-700 rounded-xl text-xs font-bold hover:bg-indigo-50 shadow-xs transition"
-                  >
-                    <Plus className="w-4 h-4" /> Create New Invoice
-                  </button>
-                  <button
-                    onClick={() => setIsClientModalOpen(true)}
-                    className="inline-flex items-center gap-2 px-4 py-2.5 bg-indigo-500/30 hover:bg-indigo-500/40 text-white border border-white/20 rounded-xl text-xs font-bold transition"
-                  >
-                    <Users className="w-4 h-4" /> Add New Client
-                  </button>
-                </div>
               </div>
+            )}
+
+            {/* Stat Cards */}
+            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+              <StatCard title="Total Clients"      value={totalClientsCount}                            icon={Users}        color="sky"     subtitle={`${clients.filter(c => c.status === 'Active').length} active`} />
+              <StatCard title="Total Projects"     value={totalProjectsCount}                           icon={FolderKanban} color="indigo"  subtitle={`${projects.filter(p => p.status === 'In Progress').length} in progress`} />
+              <StatCard title="Total Revenue"      value={`₹${totalRevenue.toLocaleString('en-IN')}`}  icon={IndianRupee}  color="emerald" trend="+18%" />
+              <StatCard title="Completed"          value={completedProjectsCount}                       icon={CheckCircle2} color="purple"  subtitle="Projects done" />
+              <StatCard title="Pending Payments"   value={`₹${pendingPayments.toLocaleString('en-IN')}`} icon={Clock}      color="amber"   subtitle={`${invoices.filter(i => i.status === 'Pending').length} invoices`} />
+              <StatCard title="Total Expenses"     value={`₹${totalExpenses.toLocaleString('en-IN')}`} icon={Receipt}      color="rose"    subtitle={`${expenses.length} entries`} />
             </div>
 
-            {/* Flowchart 6 Exact Overview Metric Cards */}
-            <div>
-              <h2 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
-                Dashboard Overview (6 Core Metrics)
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3.5">
-                {/* 1. Total Clients */}
-                <StatCard
-                  title="Total Clients"
-                  value={totalClientsCount}
-                  icon={Users}
-                  color="sky"
-                  subtitle={`${clients.filter(c => c.status === 'Active').length} Active Accounts`}
-                />
-
-                {/* 2. Total Projects */}
-                <StatCard
-                  title="Total Projects"
-                  value={totalProjectsCount}
-                  icon={FolderKanban}
-                  color="indigo"
-                  subtitle={`${projects.filter(p => p.status === 'In Progress').length} in progress`}
-                />
-
-                {/* 3. Total Revenue (₹) */}
-                <StatCard
-                  title="Total Revenue"
-                  value={`₹${totalRevenue.toLocaleString('en-IN')}`}
-                  icon={IndianRupee}
-                  color="emerald"
-                  trend="+18%"
-                />
-
-                {/* 4. Completed Projects */}
-                <StatCard
-                  title="Completed Projects"
-                  value={completedProjectsCount}
-                  icon={CheckCircle2}
-                  color="purple"
-                  subtitle="Delivered successfully"
-                />
-
-                {/* 5. Pending Payments */}
-                <StatCard
-                  title="Pending Payments"
-                  value={`₹${pendingPayments.toLocaleString('en-IN')}`}
-                  icon={Clock}
-                  color="amber"
-                  subtitle={`${invoices.filter(i => i.status === 'Pending').length} unpaid invoices`}
-                />
-
-                {/* 6. Total Expenses */}
-                <StatCard
-                  title="Total Expenses"
-                  value={`₹${totalExpenses.toLocaleString('en-IN')}`}
-                  icon={Receipt}
-                  color="rose"
-                  subtitle={`${expenses.length} logged costs`}
-                />
-              </div>
-            </div>
 
             {/* Quick Activity & Requests Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -788,12 +790,13 @@ export default function FreelancerDashboard({ onLogout }) {
         />
       </Modal>
 
-      {/* Notification Drawer (Module 8 Flow) */}
+      {/* Notification Drawer */}
       <NotificationDrawer
         isOpen={isNotificationsOpen}
         onClose={() => setIsNotificationsOpen(false)}
         onNavigate={(tab) => setActiveTab(tab)}
       />
+      </div>{/* end main flex col */}
     </div>
   );
 }

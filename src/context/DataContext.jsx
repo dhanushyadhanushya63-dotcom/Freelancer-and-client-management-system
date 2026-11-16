@@ -10,6 +10,21 @@ import {
 
 const DataContext = createContext();
 
+// ── Auto-reset: bump this version whenever initialData changes ──
+const DATA_VERSION = 'v3-dhanushya-2026';
+
+function clearAndReset() {
+  ['ficm_profile','ficm_clients','ficm_projects',
+   'ficm_invoices','ficm_expenses','ficm_notifications',
+   'ficm_current_user','ficm_token'].forEach(k => localStorage.removeItem(k));
+  localStorage.setItem('ficm_data_version', DATA_VERSION);
+}
+
+// If stored version differs → wipe old cache so fresh names load
+if (localStorage.getItem('ficm_data_version') !== DATA_VERSION) {
+  clearAndReset();
+}
+
 export function DataProvider({ children }) {
   // 1. Profile State
   const [profile, setProfile] = useState(() => {
@@ -38,6 +53,7 @@ export function DataProvider({ children }) {
   // 5. Expenses State
   const [expenses, setExpenses] = useState(() => {
     const saved = localStorage.getItem('ficm_expenses');
+
     return saved ? JSON.parse(saved) : initialExpenses;
   });
 

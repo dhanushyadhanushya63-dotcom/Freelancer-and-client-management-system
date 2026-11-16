@@ -1,69 +1,46 @@
-import React from 'react';
+﻿import React from 'react';
+import { TrendingUp, TrendingDown } from 'lucide-react';
 
-export default function StatCard({ title, value, icon: Icon, color = 'indigo', subtitle, trend }) {
-  const colorMap = {
-    indigo: {
-      bg: 'bg-indigo-50/80',
-      text: 'text-indigo-600',
-      border: 'border-indigo-100',
-      hover: 'hover:border-indigo-200'
-    },
-    emerald: {
-      bg: 'bg-emerald-50/80',
-      text: 'text-emerald-600',
-      border: 'border-emerald-100',
-      hover: 'hover:border-emerald-200'
-    },
-    amber: {
-      bg: 'bg-amber-50/80',
-      text: 'text-amber-600',
-      border: 'border-amber-100',
-      hover: 'hover:border-amber-200'
-    },
-    rose: {
-      bg: 'bg-rose-50/80',
-      text: 'text-rose-600',
-      border: 'border-rose-100',
-      hover: 'hover:border-rose-200'
-    },
-    sky: {
-      bg: 'bg-sky-50/80',
-      text: 'text-sky-600',
-      border: 'border-sky-100',
-      hover: 'hover:border-sky-200'
-    },
-    purple: {
-      bg: 'bg-purple-50/80',
-      text: 'text-purple-600',
-      border: 'border-purple-100',
-      hover: 'hover:border-purple-200'
-    }
-  };
+const T = { bg:'#09090B', surface:'#18181B', sur2:'#1F1F23', border:'#27272A', text:'#FFFFFF', muted:'#A1A1AA', accent:'#22C55E' };
 
-  const scheme = colorMap[color] || colorMap.indigo;
+const iconColors = {
+  yellow:  '#22C55E', plum:'#8B5CF6', obsidian:'#FFFFFF',
+  red:'#F87171', green:'#4ADE80',
+  /* legacy */
+  sky:'#38BDF8', indigo:'#818CF8', violet:'#A78BFA',
+  emerald:'#34D399', purple:'#C084FC', amber:'#22C55E',
+  rose:'#F87171', orange:'#22C55E',
+};
+
+export default function StatCard({ title, value, icon: Icon, color = 'orange', subtitle, trend }) {
+  const ic = iconColors[color] || T.accent;
+  const isPositive = trend && !trend.startsWith('-');
 
   return (
-    <div className={`bg-white p-5 rounded-2xl border border-slate-100 shadow-sm transition-all duration-200 hover:shadow-md ${scheme.hover}`}>
-      <div className="flex items-start justify-between">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">{title}</p>
-          <h3 className="text-2xl font-bold text-slate-900 tracking-tight">{value}</h3>
-          {subtitle && (
-            <p className="text-xs text-slate-500 mt-1 flex items-center gap-1">
-              {subtitle}
-            </p>
-          )}
+    <div className="rounded-2xl p-5 cursor-default transition-all duration-200 group"
+      style={{ background: T.surface, border:`1px solid ${T.border}` }}
+      onMouseOver={e => { e.currentTarget.style.borderColor = T.accent; e.currentTarget.style.boxShadow=`0 0 0 1px ${T.accent}, 0 8px 32px rgba(34,197,94,0.1)`; e.currentTarget.style.transform='translateY(-2px)'; }}
+      onMouseOut={e => { e.currentTarget.style.borderColor = T.border; e.currentTarget.style.boxShadow='none'; e.currentTarget.style.transform='translateY(0)'; }}>
+      <div className="flex items-start justify-between mb-4">
+        {/* Icon */}
+        <div className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200"
+          style={{ background:`${ic}18`, border:`1px solid ${ic}30` }}>
+          <Icon className="w-5 h-5" style={{ color: ic }} />
         </div>
-        <div className={`p-3 rounded-xl ${scheme.bg} ${scheme.text} flex items-center justify-center`}>
-          <Icon className="w-5 h-5" />
-        </div>
+        {/* Trend */}
+        {trend && (
+          <span className="inline-flex items-center gap-1 text-xs font-black px-2 py-1 rounded-lg"
+            style={isPositive
+              ? { background:'rgba(34,197,94,0.12)', color: T.accent, border:`1px solid rgba(34,197,94,0.25)` }
+              : { background:'rgba(239,68,68,0.12)', color:'#F87171', border:'1px solid rgba(239,68,68,0.25)' }}>
+            {isPositive ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+            {trend}
+          </span>
+        )}
       </div>
-      {trend && (
-        <div className="mt-3 pt-3 border-t border-slate-50 flex items-center text-xs text-slate-500">
-          <span className="font-medium text-emerald-600 mr-1.5">{trend}</span>
-          <span>vs last month</span>
-        </div>
-      )}
+      <p className="text-xs font-black uppercase tracking-widest mb-1" style={{ color: T.muted, fontFamily:"'Space Grotesk',sans-serif" }}>{title}</p>
+      <p className="text-2xl font-black leading-none" style={{ color: T.text, fontFamily:"'Playfair Display',serif" }}>{value}</p>
+      {subtitle && <p className="text-xs mt-2 font-semibold" style={{ color: T.muted }}>{subtitle}</p>}
     </div>
   );
 }

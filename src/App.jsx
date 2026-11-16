@@ -17,7 +17,7 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen text-slate-900 bg-slate-50 antialiased font-sans selection:bg-indigo-500 selection:text-white">
+    <div className="relative min-h-screen antialiased" style={{ background: '#09090B', color: '#FFFFFF', fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>
       {/* Dynamic View Routing */}
       {!currentUser ? (
         currentPage === 'login' ? (

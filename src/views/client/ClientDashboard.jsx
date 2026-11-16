@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   FolderKanban, FileText, IndianRupee, CheckCircle2, 
   Clock, Plus, Search, Eye, CreditCard, ShieldCheck, 
@@ -75,134 +75,141 @@ export default function ClientDashboard({ onLogout }) {
 
   const unreadNotifCount = notifications.filter(n => !n.read).length;
 
+  const TK = { bg:'#09090B', surface:'#18181B', sur2:'#1F1F23', border:'#27272A', text:'#FFFFFF', muted:'#A1A1AA', accent:'#22C55E', accentH:'#16A34A' };
+
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
-      {/* Top Navbar */}
-      <header className="sticky top-0 z-30 bg-white border-b border-slate-200">
+    <div className="min-h-screen flex flex-col" style={{ background: TK.bg }}>
+      {/* Top Navbar — dark surface */}
+      <header className="sticky top-0 z-30 border-b" style={{ background: TK.surface, borderColor: TK.border, fontFamily:"'Space Grotesk',sans-serif" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+          {/* Logo */}
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-amber-600 text-white font-black flex items-center justify-center text-lg shadow-sm">
-              C
-            </div>
+            <div className="logo-mark animate-glow">₹</div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-extrabold text-slate-900 tracking-tight text-sm sm:text-base">
-                  FreelanceFlow
+                <span style={{ fontFamily:"'Playfair Display',serif" }} className="font-black text-base">
+                  <span style={{ color: TK.text }}>Freelance</span><span style={{ color: TK.accent }}>IO</span>
                 </span>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
+                <span className="text-[10px] font-black px-2 py-0.5 rounded-full"
+                  style={{ background:'rgba(34,197,94,0.12)', color: TK.accent, border:'1px solid rgba(34,197,94,0.3)' }}>
                   Client Portal
                 </span>
               </div>
-              <p className="text-[11px] text-slate-400 hidden sm:block">Logged in as {currentUser?.name || 'TechNova Solutions'}</p>
+              <p className="text-[11px] hidden sm:block" style={{ color: TK.muted }}>Logged in as {currentUser?.name || 'TechNova Solutions'}</p>
             </div>
           </div>
 
           <div className="flex items-center gap-2.5">
-            {/* Quick Switch to Freelancer Mode for Testing */}
-            <button
-              onClick={() => switchRole('Freelancer')}
-              className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 rounded-lg transition"
-              title="Switch to Freelancer Portal"
-            >
-              Switch to Freelancer Mode ⇄
+            {/* Switch to Freelancer — Ember Orange */}
+            <button onClick={() => switchRole('Freelancer')}
+              className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-black rounded-lg transition"
+              style={{ background: TK.accent, color:'#09090B', border:`1px solid ${TK.accentH}`, boxShadow:'0 2px 8px rgba(34,197,94,0.3)', fontFamily:"'Space Grotesk',sans-serif" }}
+              onMouseOver={e => { e.currentTarget.style.background=TK.accentH; e.currentTarget.style.boxShadow='0 4px 16px rgba(34,197,94,0.4)'; }}
+              onMouseOut={e => { e.currentTarget.style.background=TK.accent; e.currentTarget.style.boxShadow='0 2px 8px rgba(34,197,94,0.3)'; }}>
+              Switch to Freelancer ⇄
             </button>
 
             {/* Notification Bell */}
-            <button
-              onClick={() => setIsNotificationsOpen(true)}
-              className="relative p-2 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition"
-              aria-label="View notifications"
-            >
+            <button onClick={() => setIsNotificationsOpen(true)}
+              className="relative p-2 rounded-xl transition" style={{ color: TK.muted }}
+              onMouseOver={e => { e.currentTarget.style.background=TK.sur2; e.currentTarget.style.color=TK.text; }}
+              onMouseOut={e => { e.currentTarget.style.background='transparent'; e.currentTarget.style.color=TK.muted; }}
+              aria-label="Notifications">
               <Bell className="w-5 h-5" />
               {unreadNotifCount > 0 && (
-                <span className="absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-indigo-600 text-white text-[10px] font-bold flex items-center justify-center ring-2 ring-white">
-                  {unreadNotifCount}
-                </span>
+                <span className="absolute top-1.5 right-1.5 w-4 h-4 text-[10px] font-black flex items-center justify-center rounded-full"
+                  style={{ background: TK.accent, color:'#09090B' }}>{unreadNotifCount}</span>
               )}
             </button>
 
-            {/* Logout (Module 11) */}
-            <button
-              onClick={onLogout}
-              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-bold text-rose-600 hover:bg-rose-50 rounded-xl transition"
-              title="Logout and return to Home Page"
-            >
-              <LogOut className="w-4 h-4" />
-              <span className="hidden sm:inline">Logout</span>
+            {/* Logout */}
+            <button onClick={onLogout}
+              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-black rounded-xl transition"
+              style={{ color: TK.muted }}
+              onMouseOver={e => { e.currentTarget.style.color='#F87171'; e.currentTarget.style.background='rgba(248,113,113,0.1)'; }}
+              onMouseOut={e => { e.currentTarget.style.color=TK.muted; e.currentTarget.style.background='transparent'; }}>
+              <LogOut className="w-4 h-4" /><span className="hidden sm:inline">Logout</span>
             </button>
           </div>
         </div>
 
-        {/* Client Navigation Tabs (Flowchart Module 4: Client Actions) */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-1 overflow-x-auto scrollbar-none py-1">
+        {/* Client Nav Tabs */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-1 overflow-x-auto scrollbar-none py-2 border-t" style={{ borderColor:'rgba(255,255,255,0.05)' }}>
           {[
-            { id: 'overview', label: 'Dashboard Overview', icon: FolderKanban },
-            { id: 'projects', label: `My Projects (${myProjects.length})`, icon: Briefcase },
-            { id: 'invoices', label: `View Invoices (${myInvoices.length})`, icon: FileText },
-            { id: 'payments', label: 'Payment History', icon: ShieldCheck },
-            { id: 'freelancer', label: 'Find / View Freelancer', icon: User },
+            { id:'overview',   label:'Overview',           icon:FolderKanban },
+            { id:'projects',   label:`Projects (${myProjects.length})`, icon:Briefcase },
+            { id:'invoices',   label:`Invoices (${myInvoices.length})`, icon:FileText },
+            { id:'payments',   label:'Payments',           icon:ShieldCheck },
+            { id:'freelancer', label:'Find Freelancer',    icon:User },
           ].map(tab => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
             return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold rounded-lg transition whitespace-nowrap ${
-                  isActive
-                    ? 'bg-amber-600 text-white shadow-xs'
-                    : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
-                }`}
-              >
-                <Icon className="w-3.5 h-3.5" />
-                {tab.label}
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)}
+                className="flex items-center gap-1.5 px-3.5 py-2 text-xs font-black rounded-lg transition whitespace-nowrap"
+                style={{
+                  background: isActive ? TK.accent : 'transparent',
+                  color: isActive ? '#09090B' : TK.muted,
+                  boxShadow: isActive ? '0 4px 12px rgba(34,197,94,0.25)' : 'none',
+                  fontFamily:"'Space Grotesk',sans-serif"
+                }}
+                onMouseOver={e => { if (!isActive) { e.currentTarget.style.background=TK.sur2; e.currentTarget.style.color=TK.text; } }}
+                onMouseOut={e => { if (!isActive) { e.currentTarget.style.background='transparent'; e.currentTarget.style.color=TK.muted; } }}>
+                <Icon className="w-3.5 h-3.5" />{tab.label}
               </button>
             );
           })}
         </div>
       </header>
 
-      {/* Main Content Area */}
+
+
+      {/* Main Content — dark bg */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
-        {/* ========================================================= */}
-        {/* TAB 1: CLIENT OVERVIEW (Flowchart Module 4 Overview) */}
-        {/* ========================================================= */}
         {activeTab === 'overview' && (
           <div className="space-y-8">
-            {/* Top Welcome Action Banner */}
-            <div className="bg-gradient-to-r from-amber-700 via-amber-600 to-amber-800 rounded-3xl p-6 sm:p-8 text-white shadow-lg relative overflow-hidden">
+            {/* Welcome Banner — dark surface + ember glow */}
+            <div className="rounded-2xl p-6 sm:p-8 relative overflow-hidden"
+              style={{ background: TK.surface, border:`1px solid ${TK.border}`, boxShadow:`0 24px 48px rgba(0,0,0,0.5), 0 0 0 1px ${TK.border}` }}>
+              <div className="absolute top-0 right-0 w-72 h-full opacity-15 pointer-events-none"
+                style={{ background:`radial-gradient(ellipse at 80% 50%,${TK.accent},transparent)`, filter:'blur(50px)' }} />
               <div className="relative z-10 max-w-2xl">
-                <span className="inline-block text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/20 text-amber-100 mb-2">
+                <span className="inline-block text-[11px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full mb-3"
+                  style={{ background:'rgba(34,197,94,0.12)', color: TK.accent, border:'1px solid rgba(34,197,94,0.3)', fontFamily:"'Space Grotesk',sans-serif" }}>
                   Client Dashboard
                 </span>
-                <h1 className="text-2xl sm:text-3xl font-black tracking-tight">
+                <h1 className="text-2xl sm:text-3xl font-black tracking-tight"
+                  style={{ color: TK.text, fontFamily:"'Playfair Display',serif" }}>
                   Welcome, {currentUser?.name || 'TechNova Solutions'}!
                 </h1>
-                <p className="text-xs sm:text-sm text-amber-100 mt-1 leading-relaxed">
-                  Track ongoing projects, review delivered milestones, and safely clear pending invoices.
+                <p className="text-sm mt-1 leading-relaxed font-semibold"
+                  style={{ color: TK.muted, fontFamily:"'Space Grotesk',sans-serif" }}>
+                  Track projects, review milestones, and clear pending invoices.
                 </p>
-
                 <div className="mt-5 flex flex-wrap items-center gap-3">
-                  <button
-                    onClick={() => setIsRequestModalOpen(true)}
-                    className="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-amber-900 rounded-xl text-xs font-bold hover:bg-amber-50 shadow-xs transition"
-                  >
-                    <Send className="w-4 h-4" /> Send New Project Request
+                  <button onClick={() => setIsRequestModalOpen(true)}
+                    className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-black rounded-xl transition"
+                    style={{ background: TK.accent, color:'#09090B', border:`1px solid #16A34A`, boxShadow:'0 4px 16px rgba(34,197,94,0.3)', fontFamily:"'Space Grotesk',sans-serif" }}
+                    onMouseOver={e => { e.currentTarget.style.background='#16A34A'; e.currentTarget.style.boxShadow='0 8px 24px rgba(34,197,94,0.4)'; }}
+                    onMouseOut={e => { e.currentTarget.style.background=TK.accent; e.currentTarget.style.boxShadow='0 4px 16px rgba(34,197,94,0.3)'; }}>
+                    <Send className="w-4 h-4" /> Send Project Request
                   </button>
-                  <button
-                    onClick={() => setActiveTab('invoices')}
-                    className="inline-flex items-center gap-2 px-4 py-2.5 bg-amber-500/30 hover:bg-amber-500/40 text-white border border-white/20 rounded-xl text-xs font-bold transition"
-                  >
+                  <button onClick={() => setActiveTab('invoices')}
+                    className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-black rounded-xl transition"
+                    style={{ background:'transparent', color: TK.text, border:`1px solid ${TK.border}`, fontFamily:"'Space Grotesk',sans-serif" }}
+                    onMouseOver={e => e.currentTarget.style.borderColor=TK.accent}
+                    onMouseOut={e => e.currentTarget.style.borderColor=TK.border}>
                     <FileText className="w-4 h-4" /> View My Invoices
                   </button>
                 </div>
               </div>
             </div>
 
-            {/* 4 Exact Client Overview Cards (Flowchart Module 4) */}
+            {/* 4 Client Stat Cards */}
             <div>
-              <h2 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
-                Dashboard Overview (4 Client Metrics)
+              <h2 className="text-xs font-black uppercase tracking-widest mb-3"
+                style={{ color:'#6B6560', fontFamily:"'Space Grotesk',sans-serif" }}>
+                Dashboard Overview
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {/* 1. My Projects */}

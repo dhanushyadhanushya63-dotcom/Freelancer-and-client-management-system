@@ -83,10 +83,10 @@ export function AuthProvider({ children }) {
 
     const userData = {
       id: detectedRole === 'Freelancer' ? 'fl-1' : 'cli-1',
-      name: detectedRole === 'Freelancer' ? 'Dhanushya R' : 'Arjun Sharma',
+      name: detectedRole === 'Freelancer' ? 'Dhanushya Muthumani' : 'Dhivya Murugeshan',
       email: email,
       role: detectedRole,
-      company: detectedRole === 'Freelancer' ? 'DK Creative Studio' : 'TechCorp Solutions'
+      company: detectedRole === 'Freelancer' ? 'DK Creative Studio' : 'Murugeshan Enterprises'
     };
 
     setCurrentUser(userData);
@@ -164,12 +164,24 @@ export function AuthProvider({ children }) {
     setLoading(false);
   };
 
-  // Quick role switch for demo
+  // Quick role switch for demo — direct state set (no async gap = no blank flash)
   const switchRole = (role) => {
     if (role === 'Freelancer') {
-      login('freelancer@demo.com', 'admin123', 'Freelancer');
+      setCurrentUser({
+        id: 'fl-1',
+        name: 'Dhanushya Muthumani',
+        email: 'dhanushya@freelancer.dev',
+        role: 'Freelancer',
+        company: 'DK Creative Studio'
+      });
     } else {
-      login('client@demo.com', 'admin123', 'Client');
+      setCurrentUser({
+        id: 'cli-1',
+        name: 'Dhivya Murugeshan',
+        email: 'dhivya@murugeshan.in',
+        role: 'Client',
+        company: 'Murugeshan Enterprises'
+      });
     }
   };
 
