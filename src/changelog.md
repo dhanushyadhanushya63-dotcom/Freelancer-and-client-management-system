@@ -20,3 +20,4 @@
 ## [84] 2026-11-16 21:37:36 - fix: Fix input autofill dark background
 ## [85] 2026-11-16 21:37:36 - feat: Add multi-currency support placeholder
 ## [86] 2026-11-16 21:37:36 - refactor: Clean up unused CSS variables
+## [87] 2026-11-16 21:37:37 - feat: Add chatbot quick reply suggestions
