@@ -23,3 +23,4 @@
 ## [87] 2026-11-16 21:37:37 - feat: Add chatbot quick reply suggestions
 ## [88] 2026-11-16 21:37:37 - fix: Resolve project status badge alignment
 ## [89] 2026-11-16 21:37:37 - feat: Add invoice line item delete button
+## [90] 2026-11-16 21:37:37 - refactor: Optimize HomeView hero section
